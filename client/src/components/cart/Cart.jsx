@@ -40,7 +40,6 @@ const Cart = () => {
                             ? "/bottleSmall.png"
                             : "/bottleBig.png"
                         }
-                        alt="product-image"
                         className="w-full rounded-lg sm:w-40"
                       />
                       <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">

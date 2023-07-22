@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart, deleteFromCart } from "./orderSlice";
-import { BsCartDash, BsCartPlus, BsCurrencyRupee } from "react-icons/bs";
+import { BsCartDash, BsCartPlus } from "react-icons/bs";
 import CartButton from "../button/cartButton/cartButton";
 import Currency from "../utils/Currency";
 import { toast } from "react-hot-toast";
@@ -96,7 +96,6 @@ const Order = () => {
                   <div className="p-4 lg:w-1/2" key={packages.gallonSize}>
                     <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
                       <img
-                        alt="team"
                         className={
                           "flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4 w-56"
                         }
