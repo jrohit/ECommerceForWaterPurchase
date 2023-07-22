@@ -21,7 +21,7 @@ Provide step-by-step instructions on how to install and run your project locally
 
 Example:
 
-1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
+1. Clone the repository: `git clone https://github.com/jrohit/bt-waterpurchaseapp.git`
 2. Change to the project directory: `cd your-repo`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm run start`
