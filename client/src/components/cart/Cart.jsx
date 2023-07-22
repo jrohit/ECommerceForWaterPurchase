@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteFromCart, removeFromCart } from "../order/orderSlice";
+import { deleteFromCart } from "../order/orderSlice";
 import Currency from "../utils/Currency";
 import Payments from "../payments/Payment";
 import { toast } from "react-hot-toast";
