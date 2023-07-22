@@ -68,5 +68,5 @@ If you have any questions or suggestions, feel free to reach out to me:
 
 - Name: Rohit Jain
 - GitHub: [Your GitHub Profile](https://github.com/jrohit)
-- Email: rohitjainlnct@gmail.com
+- Email: 4178929+jrohit@users.noreply.github.com
 - Website: [Your Personal Website](hhttps://jrohit.github.io/ResumeRohitJain)
