@@ -160,13 +160,23 @@ router.post("/updateWaterCurrentCapacity", async (req, res) => {
           message: "Order Quantites more than Water storage capacity",
         });
       } else {
-        const model = {
-          currentCapacity: currentCapacity - totalWaterGallonsPurchased,
-          totalCapacity,
-        };
+        const newCC = currentCapacity - totalWaterGallonsPurchased;
+        if (newCC > totalCapacity) {
+          res
+            .status(500)
+            .json({
+              success: false,
+              error: "current level crossed threshold of total capacity",
+            });
+        } else {
+          const model = {
+            currentCapacity: newCC,
+            totalCapacity,
+          };
 
-        const data = await updateWaterStorageCurrentCapacity(model);
-        res.status(200).json({ success: true, data });
+          const data = await updateWaterStorageCurrentCapacity(model);
+          res.status(200).json({ success: true, data });
+        }
       }
     }
   } catch (error) {

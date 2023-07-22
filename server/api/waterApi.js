@@ -1,5 +1,5 @@
 const express = require("express");
-const waterCollection = require("../models/waterModel");
+
 const {
   fetchWaterStorageCapacity,
   updateWaterStorageCurrentCapacity,
