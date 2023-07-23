@@ -4,10 +4,6 @@ const logincollection = require("../models/loginModel");
 const constants = require("../lib/constants");
 
 // Define API routes
-router.get("/", async (req, res) => {
-  const data = await orderCollection.find();
-  res.json({ message: "Hello Order", data });
-});
 
 router.post("/authenticateUser", async (req, res) => {
   const { email, password } = req.body;

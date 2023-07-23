@@ -24,12 +24,17 @@ Example:
 1. Clone the repository: `git clone https://github.com/jrohit/bt-waterpurchaseapp.git`
 2. Change to the project directory: `cd your-repo`
 3. Install dependencies: `npm install`
-4. Start the development server: `npm run start`
-5. Front end runs on localhost:5000
-6. Back end runs on localhost:8000
-7. create .env file at root and in client folder.
-8. At root .env file add PORT=8000 and MONGODB_URI to connect to port and mongodb
-9. At client .env file add PORT=5000
+4. Change directory to client : `cd client`
+5. run `npm install` and `cd ..`
+6.
+7. Start the both server concurrently: `npm run start`
+8. Front end runs on localhost:5000
+9. Back end runs on localhost:8000
+10. create .env file at root and in client folder.
+11. At root .env file add PORT=8000 and MONGODB_URI to connect to port and mongodb
+12. At client .env file add PORT=5000
+
+//For any cors issue, check the server.js and update origins
 
 ## Usage
 
