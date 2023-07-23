@@ -45,6 +45,7 @@ Order will be created in the OrderCollection and PaymentCollection will be updat
 Order created with Pending Status, will deficit the water quantity from the storage tank on UI.
 
 Next to cart Icon - Admins can login(JWT Token imitation. TODO: Login Implementaion)
+Login userid pwd is dummy and constant.
 They can see all the orders(desc sorted).
 The data is paginated. Admin can navigate back and forth to see the data.
 Admin can search data through search query.

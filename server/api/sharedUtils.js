@@ -15,7 +15,7 @@ const updateWaterStorageCurrentCapacity = async (model) => {
 
 const updateWaterStorageCapacity = async (waterQuantityToUpdate) => {
   const { currentCapacity, totalCapacity } = await fetchWaterStorageCapacity();
-  if (waterQuantityToUpdate > currentCapacity) {
+  if (currentCapacity - waterQuantityToUpdate > currentCapacity) {
     throw new Error("Order Quantites more than Water storage capacity");
   } else {
     const model = {
