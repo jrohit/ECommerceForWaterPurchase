@@ -10,20 +10,19 @@ const Order = () => {
   const dispatch = useDispatch();
   const { packagesList, cart } = useSelector((state) => state.order);
   const [selectedProductsList, setSelectedProductsList] = useState([]);
-  const [quantityMap, setQuantityMap] = useState(
-    packagesList.reduce((accum, value) => {
-      let object = {};
-      object[value.gallonSize] = 0;
-      accum.push(object);
-      return accum;
-    }, [])
-  );
+  const [quantityMap, setQuantityMap] = useState(() => {
+    let object = {};
+    packagesList.forEach((packages) => {
+      object[packages.gallonSize] = 0;
+    });
+    return object;
+  });
 
   useEffect(() => {
     setSelectedProductsList(cart);
   }, [cart]);
 
-  const addToCartHandler = ({ packages }) => {
+  const addToCartHandler = ({ packages, quantityToAdd }) => {
     const clonedSelectedProductsList = JSON.parse(
       JSON.stringify(selectedProductsList)
     );
@@ -31,14 +30,18 @@ const Order = () => {
       (item) => item.gallonSize === packages.gallonSize
     );
 
+    let quantity = 0;
+
     if (preSelectedProduct) {
-      const quantity = preSelectedProduct.quantity + 1;
+      quantity = quantityToAdd
+        ? quantityToAdd
+        : preSelectedProduct.quantity + 1;
       preSelectedProduct.quantity = quantity;
       preSelectedProduct.price = parseFloat(
         (quantity * packages.price).toFixed(2)
       );
     } else {
-      const quantity = 1;
+      quantity = quantityToAdd ?? 1;
       preSelectedProduct = {
         gallonSize: packages.gallonSize,
         quantity,
@@ -48,32 +51,43 @@ const Order = () => {
       clonedSelectedProductsList.push(preSelectedProduct);
     }
 
-    // setSelectedProductsList(clonedSelectedProductsList);
+    setQuantityMap((qm) => {
+      qm[packages.gallonSize] = quantity;
+      return { ...qm };
+    });
 
     dispatch(addToCart(clonedSelectedProductsList));
-    toast.success(`${packages.description} added to cart`);
+    toast.success(`${packages.description} updated in cart`);
   };
 
   const removeFromCartHandler = ({ packages }) => {
     const clonedSelectedProductsList = JSON.parse(
       JSON.stringify(selectedProductsList)
     );
-    let preSelectedProduct = clonedSelectedProductsList[packages.gallonSize];
+    let preSelectedProduct = clonedSelectedProductsList.find(
+      (item) => item.gallonSize === packages.gallonSize
+    );
 
     if (preSelectedProduct && preSelectedProduct.quantity > 1) {
       const quantity = preSelectedProduct.quantity - 1;
-      preSelectedProduct = {
-        ...preSelectedProduct,
-        quantity: quantity,
-        price: parseFloat((quantity * packages.price).toFixed(2)),
-      };
-      clonedSelectedProductsList[packages.gallonSize] = preSelectedProduct;
-      //   setSelectedProductsList(clonedSelectedProductsList);
+      preSelectedProduct.quantity = quantity;
+      preSelectedProduct.price = parseFloat(
+        (quantity * packages.price).toFixed(2)
+      );
+
       dispatch(removeFromCart(clonedSelectedProductsList));
+      setQuantityMap((qm) => {
+        qm[packages.gallonSize] = quantity;
+        return { ...qm };
+      });
+      toast.success(`${quantity} of ${packages.description} updated in cart`);
     } else {
-      delete clonedSelectedProductsList[packages.gallonSize];
-      //   setSelectedProductsList(clonedSelectedProductsList);
       dispatch(deleteFromCart(packages.gallonSize));
+      toast.success(`${packages.description} removed from cart`);
+      setQuantityMap((qm) => {
+        qm[packages.gallonSize] = 0;
+        return { ...qm };
+      });
     }
   };
 
@@ -119,21 +133,18 @@ const Order = () => {
                           <input
                             type="number"
                             min={1}
+                            value={quantityMap[packages.gallonSize]}
                             onChange={(e) => {
                               //onhold
-                              //   const clonedQuantityMap = JSON.parse(
-                              //     JSON.stringify(quantityMap)
-                              //   );
-                              //   debugger;
-                              //   const updateQuantity = clonedQuantityMap.find(
-                              //     (obj) => {
-                              //       return !obj[packages.gallonSize];
-                              //     }
-                              //   );
-                              //   updateQuantity[packages.gallonSize] =
-                              //     e.target.value;
-                              //   console.log(updateQuantity, clonedQuantityMap);
-                              //   setQuantityMap(quantityMap);
+                              const quantity = parseInt(e.target.value);
+                              setQuantityMap((qm) => {
+                                qm[packages.gallonSize] = quantity;
+                                return { ...qm };
+                              });
+                              addToCartHandler({
+                                packages,
+                                quantityToAdd: quantity,
+                              });
                             }}
                             className="w-16 py-1 text-center border rounded-md m-2 focus:outline-none focus:ring focus:border-blue-300"
                           />
