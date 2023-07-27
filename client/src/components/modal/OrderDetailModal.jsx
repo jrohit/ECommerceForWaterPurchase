@@ -3,6 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import Table from "../table/Table";
 import { formatDate, orderStatusOptions } from "../utils/helper";
 import Select from "react-select";
+import Currency from "../utils/Currency";
 
 const OrderDetailModal = ({
   isOpen,
@@ -65,12 +66,16 @@ const OrderDetailModal = ({
               {orderDetails.orderId}
             </p>
             <p>
-              <span className="text-l font-semibold">Order ID:</span>{" "}
+              <span className="text-l font-semibold">Customer Name:</span>{" "}
               {orderDetails.orderCustomerName}
             </p>
             <p>
-              <span className="text-l font-semibold">Order ID:</span>{" "}
+              <span className="text-l font-semibold">Order Date:</span>{" "}
               {formatDate(orderDetails.orderDate)}
+            </p>
+            <p className="flex justify-start ">
+              <span className="text-l font-semibold ">Order Total:</span>{" "}
+              <Currency price={orderDetails.orderTotal} />
             </p>
             <div className="flex items-center">
               <span className="text-l font-semibold">Order Status:</span> &nbsp;
