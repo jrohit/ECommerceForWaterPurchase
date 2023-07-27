@@ -3,7 +3,8 @@
     {
       "src": "./server.js",
       "use": "@vercel/node"
-    }
+    },
+    { "src": "*.html", "use": "@vercel/static" }
   ],
   "buildCommand": "npm install && cd client && npm run build",
   "routes": [
